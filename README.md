@@ -2,7 +2,7 @@
 
 A complete full-stack leave request management system built for Revna Biosciences with JWT authentication, role-based authorization, and comprehensive testing.
 
-**🔗 Repository:** [https://github.com/niisackey/Revna.git](https://github.com/niisackey/Revna.git) Thannk you once agin for giving me this opportunity to showcase my skills. Earlier today i was under pressure and forgot a lot of my passwords. I pray i am considered.
+**🔗 Repository:** [https://github.com/niisackey/Revna.git](https://github.com/niisackey/Revna.git) Thank you once agin for giving me this opportunity to showcase my skills. Earlier today i was under pressure and forgot a lot of my passwords. I pray i am considered.
 
 ## 🚀 Features
 
