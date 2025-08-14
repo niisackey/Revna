@@ -1,0 +1,57 @@
+# Docker Compose for PostgreSQL and FastAPI
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: leave_requests_db
+    environment:
+      POSTGRES_DB: leave_requests
+      POSTGRES_USER: leave_app
+      POSTGRES_PASSWORD: leave_password123
+    ports:
+      - "5433:5432"
+    command: >
+      postgres -c 'shared_preload_libraries=pg_stat_statements'
+               -c 'log_statement=all'
+               -c 'log_min_duration_statement=0'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - leave_network
+
+  fastapi:
+    build: .
+    container_name: leave_requests_api
+    environment:
+      DATABASE_URL: postgresql://leave_app:leave_password123@postgres:5432/leave_requests
+    ports:
+      - "8001:8001"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - leave_network
+
+  # Optional: pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: leave_requests_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - leave_network
+
+volumes:
+  postgres_data:
+
+networks:
+  leave_network:
+    driver: bridge
